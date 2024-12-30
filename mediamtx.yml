@@ -1,0 +1,18 @@
+# Enable the API if needed
+# api: yes
+# apiAddress: :9997
+
+# RTSP Configuration
+rtspAddress: :8554
+protocols: [tcp, udp]
+
+# HLS Configuration
+hlsAddress: :8888
+hlsAlwaysRemux: yes
+hlsSegmentCount: 7
+hlsSegmentDuration: 1s
+
+# Path Configuration
+paths:
+  all:
+    source: publisher

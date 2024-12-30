@@ -1,0 +1,20 @@
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    container_name: mediamtx
+    ports:
+      - "8554:8554"  # RTSP
+      - "8888:8888"  # HLS
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml  # Custom MediaMTX config file
+      - ./videos:/videos  # Mount your local videos folder
+      
+  ffmpeg-streamer:
+    image: jrottenberg/ffmpeg:latest
+    container_name: ffmpeg-streamer
+    volumes:
+      - ./videos:/videos  # Mount your local videos folder
+      - ./scripts:/scripts  # Mount the script folder
+    depends_on:
+      - mediamtx
+    entrypoint: ["/bin/bash", "/scripts/start.sh"]
